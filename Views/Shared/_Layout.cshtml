@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApp_OpenIDConnect_DotNet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/home-page.css" />
+
+    <script src="/js/show.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <title>Assignment (Desktop)</title>
+</head>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Exercise</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+   
+
+        <!-- NAV PC-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <label class="container-fluid" for="checkbox_id" style="margin-bottom: 0;">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <label class="navbar-toggler-icon" for="checkbox_id"></label>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <label class="nav-link active" aria-current="page" for="checkbox_id2" id="new">
+                                <i class="ms-Icon ms-Icon--Add ms-fontColor-magentaLight"></i>
+                                <span>New</span>
+                                <i class="ms-Icon ms-Icon--ChevronDown ms-fontColor-neutralSecondaryAlt"></i>
+                            </label>
+                        </li>   
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <form name="form" action="https://localhost:44321/api/MSTeams" enctype="multipart/form-data" method="post">
+                                    <i class="ms-Icon ms-Icon--Upload ms-fontColor-magentaLight"></i>
+
+                                    <input class="input-file" id="files" name="files" type="file" multiple onchange="fileupload('files');" hidden/>
+                                    <label for="files">Upload</label>
+
+
+                                    <i class="ms-Icon ms-Icon--ChevronDown ms-fontColor-neutralSecondaryAlt"></i>
+                                </form>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="ms-Icon ms-Icon--SyncToPC ms-fontColor-magentaLight"></i>
+                                <span>Sync</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <img src="/logo_excel.png" alt="Logo_excel" id="logo_excel">
+                                <span>Export to Excel</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="ms-Icon ms-Icon--Add ms-fontColor-magentaLight"></i>
+                                <span>Flow</span>
+                                <i class="ms-Icon ms-Icon--ChevronDown ms-fontColor-neutralSecondaryAlt"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="ms-Icon ms-Icon--More ms-fontColor-neutralSecondaryAlt"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </label>
+        </nav>
+
+        <input type="checkbox" hidden name="checkbox2" id="checkbox_id2" value="value" class="nav_input2">
+
+        <div class="dropdown-content">
+            <ul class="content">
+                <li>
+                    <button id="btnCreateFolder">
+                        <div onclick="Openform()">
+                            <img src="https://spoprod-a.akamaihd.net/files/fabric/assets/item-types/20/folder.svg?v6"
+                                 width="16px" height="16px">
+                            <span>Folder</span>
+                        </div>
+                    </button>
+                </li>
+                <li>
+                    <button id="btnCreateFile">
+                        <div>
+                            <img src="https://spoprod-a.akamaihd.net/files/fabric/assets/item-types/16_1.5x/docx.svg?v6"
+                                 width="16px" height="16px">
+                            <span>Word</span>
+                        </div>
+                    </button>
+                </li>
+                <li>
+                    <button>
+                        <div>
+                            <img src="https://spoprod-a.akamaihd.net/files/fabric/assets/item-types/16_1.5x/xlsx.svg?v6"
+                                 width="16px" height="16px">
+                            <span>Excel</span>
+                        </div>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <input type="hidden" id="txtId">
+        <div class="container" id="createContent">
+            <div class="row">
+                <div class="col-4">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="txtName">
+                </div>
+                <div class="col-4">
+                    <label>Modify</label>
+                    <input type="text" class="form-control" id="txtModify">
+                </div>
+                <div class="col-4">
+                    <label>Modify By</label>
+                    <input type="text" class="form-control" id="txtModifyBy">
+                </div>
+                <div class="col-12">
+                    <button id="btnCreate" type="button" class="btn btn-success">Create</button>
+                    <button id="btnEdit" style="display: none; float: right;" type="button" class="btn btn-success" onclick="modify()">Edit</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAV MOBILE-->
+
+        <input type="checkbox" hidden name="checkbox" id="checkbox_id" value="value" class="nav_input">
+
+        <nav class="nav_mobile">
+            <div class="nav_mobile-list">
+                <!-- <li>-->
+                <div class="nav_mobile-link">
+                    <i class="ms-Icon ms-Icon--Add ms-fontColor-magentaLight"></i>
+                    <span>New</span>
+                    <i class="ms-Icon ms-Icon--ChevronDown ms-fontColor-neutralSecondaryAlt"></i>
+                </div>
+                <div class="nav_mobile-link">
+                    <i class="ms-Icon ms-Icon--Upload ms-fontColor-magentaLight"></i>
+                    <span>Upload</span>
+                    <i class="ms-Icon ms-Icon--ChevronDown ms-fontColor-neutralSecondaryAlt"></i>
+                </div>
+                <div class="nav_mobile-link">
+                    <i class="ms-Icon ms-Icon--SyncToPC ms-fontColor-magentaLight"></i>
+                    <span>Sync</span>
+                </div>
+                <div class="nav_mobile-link">
+                    <img src="src/styles/pages/logo_excel.png" alt="Logo_excel">
+                    <span>Export to Excel</span>
+                </div>
+                <div class="nav_mobile-link">
+                    <i class="ms-Icon ms-Icon--Add ms-fontColor-magentaLight"></i>
+                    <span>Flow</span>
+                    <i class="ms-Icon ms-Icon--ChevronDown ms-fontColor-neutralSecondaryAlt"></i>
+                </div>
+                <div class="nav_mobile-link">
+                    <i class="ms-Icon ms-Icon--More ms-fontColor-neutralSecondaryAlt"></i>
+                </div>
+                <!-- </li> -->
+            </div>
+        </nav>
+
+    </header>
+   
+            @RenderBody()
+      
+    
+
+</html>
